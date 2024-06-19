@@ -14,6 +14,15 @@ Rails.application.routes.draw do
   }
 
   resources :restaurants
+  
+  post '/api/save-text', to: 'api/texts#create'
+
+  namespace :api do
+    resources :texts, only: [:create]
+    get 'texts/show', to: 'texts#show'
+    get 'texts/public', to: 'texts#public_texts'
+    get 'latest-text', to: 'texts#show_latest'
+  end
 
 
   get "up" => "rails/health#show", as: :rails_health_check
