@@ -1,13 +1,22 @@
 class RestaurantsController < ApplicationController
-  before_action :authenticate_admin! 
+  before_action :authenticate_admin!, except: [:index, :show]
 
   def index
-    @restaurants = current_admin.restaurants
+    if params[:city].present? && params[:food].present?
+      @restaurants = Restaurant.where(city: params[:city], food: params[:food])
+    elsif params[:city].present?
+      @restaurants = Restaurant.where(city: params[:city])
+    elsif params[:food].present?
+      @restaurants = Restaurant.where(food: params[:food])
+    else
+      @restaurants = Restaurant.all
+    end
+
     render json: @restaurants
   end
 
   def show
-    @restaurant = current_admin.restaurants.find(params[:id])
+    @restaurant = Restaurant.find(params[:id])
     render json: @restaurant
   end
 
@@ -25,9 +34,12 @@ class RestaurantsController < ApplicationController
   private
 
   def restaurant_params
-    params.require(:restaurant).permit(:name, :description, :admin_id)
+    params.require(:restaurant).permit(:name, :description, :admin_id, :city, :food)
   end
 end
+
+
+
 
 
 
