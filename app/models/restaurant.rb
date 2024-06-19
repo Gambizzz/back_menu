@@ -1,5 +1,5 @@
 class Restaurant < ApplicationRecord
   belongs_to :admin
 
-  validates :name, :description, presence: true
+  validates :name, :description, :city, :food, presence: true
 end
