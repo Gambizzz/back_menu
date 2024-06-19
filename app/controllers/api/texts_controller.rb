@@ -17,7 +17,15 @@ module Api
         @text = current_admin.texts.last
         render json: { text: @text.content }
       end
-  
+      def show_latest
+        @text = Text.last
+        if @text
+          render json: { text: @text.content }
+        else
+          render json: { error: 'No text found' }, status: :not_found
+        end
+      end
+      
       def public_texts
         @texts = Text.all
         render json: @texts.map { |text| { id: text.id, content: text.content, admin_id: text.admin_id, created_at: text.created_at } }
