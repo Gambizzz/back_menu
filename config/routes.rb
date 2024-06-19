@@ -15,6 +15,9 @@ Rails.application.routes.draw do
 
   resources :restaurants
 
+  resources :users, only: [:show, :update, :destroy]
+
+  resources :admins, only: [:update, :destroy]
 
   get "up" => "rails/health#show", as: :rails_health_check
 end
