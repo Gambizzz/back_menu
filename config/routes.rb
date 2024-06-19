@@ -24,6 +24,9 @@ Rails.application.routes.draw do
     get 'latest-text', to: 'texts#show_latest'
   end
 
+  resources :users, only: [:show, :update, :destroy]
+
+  resources :admins, only: [:update, :destroy]
 
   get "up" => "rails/health#show", as: :rails_health_check
 end
