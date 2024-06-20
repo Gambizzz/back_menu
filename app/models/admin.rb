@@ -1,5 +1,7 @@
 class Admin < ApplicationRecord
-  has_many :texts
+  has_many :text_to_admins
+  has_many :texts, through: :text_to_admins
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
