@@ -1,5 +1,6 @@
 class AdminMailer < ApplicationMailer
   default from: ENV['MJ_DEFAULT_FROM']
+  layout 'mailer'
 
   def welcome_email(admin)
     @admin = admin
