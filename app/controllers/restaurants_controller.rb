@@ -9,8 +9,16 @@ class RestaurantsController < ApplicationController
       @restaurants = Restaurant.where(city: params[:city])
     elsif params[:food].present?
       @restaurants = Restaurant.where(food: params[:food])
-    else
+    else  
       @restaurants = Restaurant.all
+    end
+
+    @restaurants = @restaurants.map do |restaurant|
+      if restaurant.photo.attached?
+        restaurant.as_json.merge(image_url: url_for(restaurant.photo))
+      else
+        restaurant.as_json
+      end
     end
 
     render json: @restaurants
@@ -22,13 +30,14 @@ class RestaurantsController < ApplicationController
   end
 
   def create
-    restaurant = Restaurant.new(restaurant_params)
-    restaurant.admin_id = current_admin.id
+    @restaurant = Restaurant.new(restaurant_params)
+    @restaurant.admin_id = current_admin.id
 
-    if restaurant.save
-      render json: restaurant, status: :created
+
+    if @restaurant.save
+      render json: @restaurant, status: :created
     else
-      render json: { errors: restaurant.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: @restaurant.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -42,6 +51,7 @@ class RestaurantsController < ApplicationController
   end
 
   def destroy
+    @restaurant = Restaurant.find(params[:id])
     @restaurant.destroy
     render json: { message: "Restaurant deleted successfully" }, status: :ok
   end
@@ -56,15 +66,6 @@ class RestaurantsController < ApplicationController
   end
 
   def restaurant_params
-    params.require(:restaurant).permit(:name, :description, :admin_id, :city, :food)
+    params.require(:restaurant).permit(:name, :description, :city, :food, :photo)
   end
 end
-
-
-
-
-
-
-
-
-
