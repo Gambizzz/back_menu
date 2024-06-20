@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   
     def show
       render json: @user
+      @reservations = @user.reservations
     end
   
     def update
