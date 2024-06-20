@@ -12,7 +12,6 @@ class RestaurantsController < ApplicationController
     else  
       @restaurants = Restaurant.all
     end
-
     @restaurants = @restaurants.map do |restaurant|
       if restaurant.photo.attached?
         restaurant.as_json.merge(image_url: url_for(restaurant.photo))
@@ -26,7 +25,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
-    render json: @restaurant
+    render json: @restaurant.as_json.merge(image_url: url_for(@restaurant.photo))
   end
 
   def create
