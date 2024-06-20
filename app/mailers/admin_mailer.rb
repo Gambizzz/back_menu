@@ -1,11 +1,11 @@
-class UserMailer < Devise::Mailer
+class AdminMailer < ApplicationMailer
   default from: ENV['MJ_DEFAULT_FROM']
   layout 'mailer'
 
-  def welcome_email(user)
-    @user = user
-    @url = "http://localhost:5173/login"
-    mail(to: @user.email, subject: 'Bienvenue sur notre application !')
+  def welcome_email(admin)
+    @admin = admin
+    @url = "http://localhost:5173/admin/login"
+    mail(to: @admin.email, subject: 'Bienvenue sur notre application !')
   end
 
   def reset_password_instructions(record, token, opts={})
