@@ -1,6 +1,6 @@
 class Text < ApplicationRecord
-    belongs_to :admin
-  
-    validates :content, presence: true
-    validates :admin, presence: true
-  end
+  has_many :text_to_admins
+  has_many :admins, through: :text_to_admins
+
+  validates :content, presence: true
+end

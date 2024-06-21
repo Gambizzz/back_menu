@@ -13,7 +13,9 @@ Rails.application.routes.draw do
     passwords: "admins/passwords" 
   }
 
-  resources :restaurants
+  resources :restaurants do
+    resources :reservations
+  end
   
   post '/api/save-text', to: 'api/texts#create'
 
