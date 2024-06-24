@@ -50,8 +50,12 @@ class RestaurantsController < ApplicationController
 
   def destroy
     @restaurant = Restaurant.find(params[:id])
-    @restaurant.destroy
-    render json: { message: "Restaurant deleted successfully" }, status: :ok
+    if @restaurant.admin_id == current_admin.id
+      @restaurant.destroy
+      render json: { message: "Restaurant deleted successfully" }, status: :ok
+    else
+      render json: { error: "Unauthorized" }, status: :unauthorized
+    end
   end
 
   private
