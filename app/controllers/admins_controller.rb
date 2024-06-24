@@ -3,7 +3,7 @@ class AdminsController < ApplicationController
   
     def update
       @admin = current_admin
-      if @admin.update(admin_params)
+      if @admin.update(admin_params)  
         render json: @admin
       else
         render json: @admin.errors, status: :unprocessable_entity
