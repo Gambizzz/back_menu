@@ -51,5 +51,4 @@ gem "devise-jwt", "~> 0.11.0"
 gem "dotenv-rails"
 gem "faker"
 gem "mailjet"
-
 gem "table_print", "~> 1.5"
