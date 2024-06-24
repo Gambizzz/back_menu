@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     resources :reservations, only: [:index, :new, :create, :show, :destroy]
   end
 
+  
   post '/api/save-text', to: 'api/texts#create'
 
   namespace :api do
@@ -26,7 +27,9 @@ Rails.application.routes.draw do
     get 'latest-text', to: 'texts#show_latest'
   end
 
-  resources :users, only: [:show, :update, :destroy]
+  resources :users, only: [:show, :update, :destroy] do
+    get 'reservations', to: 'reservations#user_reservations'
+  end
 
   resources :admins, only: [:update, :destroy]
 

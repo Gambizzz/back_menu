@@ -16,14 +16,13 @@ class ReservationsController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id])
     @reservation = @restaurant.reservations.build(reservation_params)
     @reservation.user = current_user
-
+    
     if @reservation.save
-      redirect_to @restaurant, notice: 'La réservation a été prise en compte.'
+      render json: @reservation, status: :created
     else
-      render 'restaurants/show'
+      render json: @reservation.errors, status: :unprocessable_entity
     end
   end
-
   def show
     @reservation = Reservation.find(params[:id])
   end
@@ -37,6 +36,13 @@ class ReservationsController < ApplicationController
       redirect_to root_path, alert: "La réservation que vous essayez de supprimer n'existe pas ou vous n'êtes pas autorisé à la supprimer."
     end
   end
+  
+  def user_reservations 
+  @user = User.find(params[:user_id])
+  @reservations = @user.reservations
+  render json: @reservations
+  end
+
 
   private
 
@@ -49,5 +55,6 @@ class ReservationsController < ApplicationController
   def reservation_params
     params.require(:reservation).permit(:number, :date, :time, :restaurant_id)
   end
+
   
 end

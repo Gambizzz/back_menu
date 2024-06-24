@@ -19,6 +19,7 @@ class UsersController < ApplicationController
       @user.destroy
       head :no_content
     end
+    
   
     private
   

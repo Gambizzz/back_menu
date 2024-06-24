@@ -59,6 +59,8 @@ class RestaurantsController < ApplicationController
     end
   end
 
+  
+
   private
 
   def authorize_admin!
