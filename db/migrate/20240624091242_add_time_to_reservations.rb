@@ -1,5 +1,7 @@
 class AddTimeToReservations < ActiveRecord::Migration[7.1]
   def change
-    add_column :reservations, :time, :time
+    unless column_exists?(:reservations, :time)
+      add_column :reservations, :time, :time
+    end
   end
 end
