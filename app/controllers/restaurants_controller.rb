@@ -32,7 +32,6 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.new(restaurant_params)
     @restaurant.admin_id = current_admin.id
 
-
     if @restaurant.save
       render json: @restaurant, status: :created
     else

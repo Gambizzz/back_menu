@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_21_085247) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_20_155819) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -85,25 +85,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_21_085247) do
     t.index ["admin_id"], name: "index_restaurants_on_admin_id"
   end
 
-  create_table "text_to_admins", force: :cascade do |t|
-    t.bigint "text_id", null: false
-    t.bigint "admin_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["admin_id"], name: "index_text_to_admins_on_admin_id"
-    t.index ["text_id"], name: "index_text_to_admins_on_text_id"
-  end
-
-  create_table "texts", force: :cascade do |t|
-    t.text "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "admin_id", null: false
-    t.bigint "restaurant_id", null: false
-    t.index ["admin_id"], name: "index_texts_on_admin_id"
-    t.index ["restaurant_id"], name: "index_texts_on_restaurant_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -121,8 +102,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_21_085247) do
   add_foreign_key "reservations", "restaurants"
   add_foreign_key "reservations", "users"
   add_foreign_key "restaurants", "admins"
-  add_foreign_key "text_to_admins", "admins"
-  add_foreign_key "text_to_admins", "texts"
-  add_foreign_key "texts", "admins"
-  add_foreign_key "texts", "restaurants"
 end
