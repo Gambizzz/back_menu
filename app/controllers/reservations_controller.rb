@@ -50,7 +50,7 @@ class ReservationsController < ApplicationController
 
   def authorize_admin!
     @reservation = Reservation.find(params[:id])
-    unless current_admin
+    unless current_admin || current_user
       render json: { error: "Unauthorized" }, status: :unauthorized
     end
   end
