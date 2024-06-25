@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   resources :restaurants do
     resources :reservations
+    resources :comments, only: [:index, :create, :destroy]
   end
   
   resources :users, only: [:show, :update, :destroy]

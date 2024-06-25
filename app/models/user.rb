@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :reservations, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :restaurants, through: :favorites
+  has_many :comments, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, confirmation: true, length: { minimum: 6 }
