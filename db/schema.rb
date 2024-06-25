@@ -63,8 +63,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_20_155819) do
   end
 
   create_table "reservations", force: :cascade do |t|
+    t.string "number"
+    t.date "date"
+    t.time "time"
+    t.bigint "restaurant_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["restaurant_id"], name: "index_reservations_on_restaurant_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
   create_table "restaurants", force: :cascade do |t|
@@ -107,6 +114,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_20_155819) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "reservations", "restaurants"
+  add_foreign_key "reservations", "users"
   add_foreign_key "restaurants", "admins"
   add_foreign_key "text_to_admins", "admins"
   add_foreign_key "text_to_admins", "texts"

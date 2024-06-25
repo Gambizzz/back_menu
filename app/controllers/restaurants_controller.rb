@@ -12,15 +12,7 @@ class RestaurantsController < ApplicationController
     else  
       @restaurants = Restaurant.all
     end
-    @restaurants = @restaurants.map do |restaurant|
-      if restaurant.photo.attached?
-        restaurant.as_json.merge(image_url: url_for(restaurant.photo))
-      else
-        restaurant.as_json
-      end
-    end
-
-    render json: @restaurants
+    render json: @restaurants.map { |restaurant| restaurant.as_json.merge(image_url: restaurant.photo.attached? ? url_for(restaurant.photo) : nil) }
   end
 
   def show

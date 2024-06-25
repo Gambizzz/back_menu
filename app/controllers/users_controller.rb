@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     before_action :set_user, only: [:show, :update, :destroy]
   
     def show
-      render json: @user
+      render json: @user.as_json(only: [:id, :email])
       @reservations = @user.reservations
     end
   
