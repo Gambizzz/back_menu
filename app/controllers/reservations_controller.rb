@@ -1,5 +1,6 @@
 class ReservationsController < ApplicationController
-  before_action :require_login, only: [:new, :create]
+  before_action :require_login, only: [:new, :create, :destroy]
+  before_action :authorize_admin!, only: [:destroy]
 
   def index
     @restaurant = Restaurant.find(params[:restaurant_id])
@@ -32,9 +33,9 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.find_by(id: params[:id])
     if @reservation
       @reservation.destroy
-      redirect_to root_path, notice: "La réservation a été supprimée avec succès!"
+      render json: { message: "La réservation a été supprimée avec succès!" }, status: :ok
     else
-      redirect_to root_path, alert: "La réservation que vous essayez de supprimer n'existe pas ou vous n'êtes pas autorisé à la supprimer."
+      render json: { error: "La réservation que vous essayez de supprimer n'existe pas ou vous n'êtes pas autorisé à la supprimer." }, status: :not_found
     end
   end
   
@@ -47,8 +48,15 @@ class ReservationsController < ApplicationController
 
   private
 
+  def authorize_admin!
+    @reservation = Reservation.find(params[:id])
+    unless current_admin
+      render json: { error: "Unauthorized" }, status: :unauthorized
+    end
+  end
+
   def require_login
-    unless current_user
+    unless current_user || current_admin
       redirect_to new_user_session_path
     end
   end

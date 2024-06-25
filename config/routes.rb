@@ -32,6 +32,6 @@ Rails.application.routes.draw do
   end
 
   resources :admins, only: [:update, :destroy]
-
+  
   get "up" => "rails/health#show", as: :rails_health_check
 end

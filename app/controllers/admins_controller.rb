@@ -9,6 +9,7 @@ class AdminsController < ApplicationController
         render json: @admin.errors, status: :unprocessable_entity
       end
     end
+    
     def show
       @admin = current_admin
       @reservations = @admin.reservations #adminReservation
