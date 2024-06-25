@@ -17,15 +17,6 @@ Rails.application.routes.draw do
     resources :reservations
   end
   
-  post '/api/save-text', to: 'api/texts#create'
-
-  namespace :api do
-    resources :texts, only: [:create]
-    get 'texts/show', to: 'texts#show'
-    get 'texts/public', to: 'texts#public_texts'
-    get 'latest-text', to: 'texts#show_latest'
-  end
-
   resources :users, only: [:show, :update, :destroy]
 
   resources :admins, only: [:update, :destroy]
