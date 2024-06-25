@@ -23,6 +23,7 @@ class ReservationsController < ApplicationController
       render json: @reservation.errors, status: :unprocessable_entity
     end
   end
+  
   def show
     @reservation = Reservation.find(params[:id])
   end
