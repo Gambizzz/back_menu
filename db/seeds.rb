@@ -19,4 +19,7 @@ end
     food: ['Chinese', 'Japanese', 'Italian', 'French', 'Lebanese', 'Mediterranean', 'Greek', 'Mexican', 'Indian', 'Thaï', 'Korean', 'Vegetarian', 'Fast food'].sample,
     admin_id: Admin.pluck(:id).sample
   )
+
+  restaurant.photo.attach( io: File.open(Rails.root.join('db/images/restau.avif')),
+  filename: 'restau.avif')
 end
