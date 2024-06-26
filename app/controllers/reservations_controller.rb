@@ -4,8 +4,8 @@ class ReservationsController < ApplicationController
   
     def index
       @restaurant = Restaurant.find(params[:restaurant_id])
-      @reservations = @restaurant.reservations
-      render json: @reservations
+      @reservations = @restaurant.reservations.includes(:user)
+      render json: @reservations.as_json(include: { user: {only: :email} })
     end
   
     def new
