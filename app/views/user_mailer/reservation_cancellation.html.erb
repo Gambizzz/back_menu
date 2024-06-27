@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+
+  <body>
+    <h1>Annulation de votre réservation</h1>
+    <p>
+      Bonjour <%= @user.email %>,
+    </p>
+    <p>
+      Nous vous informons que votre réservation au restaurant <%= @reservation.restaurant.name %> a été annulée.
+    </p>
+    <p>
+      Si vous avez des questions, n'hésitez pas à nous contacter.
+    </p>
+    <p>À très vite sur MENU !</p>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+
+  <body>
+    <h1>Nouvelle réservation reçue !</h1>
+    <p>
+      Une nouvelle réservation a été effectuée dans votre restaurant <%= @restaurant.name %>.
+    </p>
+    <p>
+      Détails de la réservation :
+    </p>
+    <ul>
+      <li><strong>Nom du restaurant :</strong> <%= @restaurant.name %></li>
+      <li><strong>Client :</strong> <%= @user.email %></li>
+      <li><strong>Nombre de personnes :</strong> <%= @reservation.number %></li>
+      <li><strong>Date :</strong> <%= @reservation.date %></li>
+      <li><strong>Heure :</strong> <%= @reservation.time %></li>
+    </ul>
+    <p>
+      Pour plus de détails, connectez-vous à votre espace admin via : <%= @url %>
+    </p>
+    <p>À très vite sur MENU !</p>
+  </body>
+</html>

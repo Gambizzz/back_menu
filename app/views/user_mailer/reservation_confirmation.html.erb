@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+
+  <body>
+    <h1> Confirmation de votre réservation </h1>
+    <p>
+      Bonjour <%= @user.email %>,
+    </p>
+    <p>
+      Nous confirmons votre réservation chez <%= @reservation.restaurant.name %> pour le 
+      <%= @reservation.date %> à <%= @reservation.time %> pour <%= @reservation.number %> personnes.
+    </p>
+    <p>
+      Nous sommes impatients de vous accueillir !
+    </p>
+    <p> À très bientôt, </p>
+    <p> L'équipe de MENU </p>
+  </body>
+</html>
