@@ -9,23 +9,28 @@ class RestaurantsController < ApplicationController
       @restaurants = Restaurant.where(city: params[:city])
     elsif params[:food].present?
       @restaurants = Restaurant.where(food: params[:food])
-    else  
+    else
       @restaurants = Restaurant.all
     end
+  
     @restaurants = @restaurants.map do |restaurant|
-      if restaurant.photo.attached?
+      if restaurant.cover_photo.attached?
+        restaurant.as_json.merge(cover_image_url: url_for(restaurant.cover_photo))
+      elsif restaurant.photo.attached?
         restaurant.as_json.merge(image_url: url_for(restaurant.photo))
       else
         restaurant.as_json
       end
     end
-
+    
+  
     render json: @restaurants
   end
+  
 
   def show
     @restaurant = Restaurant.find(params[:id])
-    render json: @restaurant.as_json.merge(image_url: url_for(@restaurant.photo))
+    render json: @restaurant.as_json.merge(image_url: url_for(@restaurant.photo),cover_image_url: url_for(@restaurant.cover_photo))
   end
 
   def create
@@ -68,6 +73,6 @@ class RestaurantsController < ApplicationController
   end
 
   def restaurant_params
-    params.require(:restaurant).permit(:name, :description, :city, :food, :photo)
+    params.require(:restaurant).permit(:name, :description, :city, :food, :photo, :cover_photo)
   end
 end
