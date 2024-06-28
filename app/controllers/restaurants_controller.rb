@@ -23,14 +23,23 @@ class RestaurantsController < ApplicationController
       end
     end
     
-  
     render json: @restaurants
   end
   
 
   def show
     @restaurant = Restaurant.find(params[:id])
-    render json: @restaurant.as_json.merge(image_url: url_for(@restaurant.photo),cover_image_url: url_for(@restaurant.cover_photo))
+    restaurant_data = @restaurant.as_json
+
+    if @restaurant.photo.attached?
+      restaurant_data[:image_url] = url_for(@restaurant.photo)
+    end
+
+    if @restaurant.cover_photo.attached?
+      restaurant_data[:cover_image_url] = url_for(@restaurant.cover_photo)
+    end
+
+    render json: restaurant_data
   end
 
   def create
