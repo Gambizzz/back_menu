@@ -1,0 +1,16 @@
+Nouvelle réservation reçue !
+==============================
+
+Une nouvelle réservation a été effectuée dans votre restaurant <%= @restaurant.name %>.
+
+Détails de la réservation :
+
+Nom du restaurant : <%= @restaurant.name %>
+Client : <%= @user.email %>
+Nombre de personnes : <%= @reservation.number %>
+Date : <%= @reservation.date %>
+Heure : <%= @reservation.time %>
+
+Pour plus de détails, connectez-vous à votre espace admin via : <%= @url %>.
+
+À très vite sur MENU !

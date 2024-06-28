@@ -12,4 +12,16 @@ class UserMailer < Devise::Mailer
     @token = token
     devise_mail(record, :reset_password_instructions, opts)
   end
+
+  def reservation_confirmation(user, reservation)
+    @user = user
+    @reservation = reservation
+    mail(to: @user.email, subject: 'Confirmation de votre réservation')
+  end
+
+  def reservation_cancellation(user, reservation)
+    @user = user
+    @reservation = reservation
+    mail(to: @user.email, subject: 'Annulation de votre réservation')
+  end
 end
