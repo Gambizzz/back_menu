@@ -11,7 +11,7 @@ class RestaurantsController < ApplicationController
       @restaurants = Restaurant.where(food: params[:food])
     else
       @restaurants = Restaurant.all
-    end
+    end 
   
     @restaurants = @restaurants.map do |restaurant|
       if restaurant.cover_photo.attached?
